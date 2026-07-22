@@ -106,10 +106,16 @@
     50%{ opacity:1; }
     100%{ opacity:.55; }
   }
+  #envelope-screen.hidden .envelope-stage{
+    filter:blur(80px);
+    opacity:0;
+    transition:filter .6s ease, opacity .6s ease;
+  }
   #envelope-screen.hidden{
     opacity:0;
     visibility:hidden;
     pointer-events:none;
+    transition:opacity .6s ease, visibility .6s ease;
   }
 
   .envelope-stage{
@@ -121,6 +127,7 @@
     align-items:center;
     opacity:0;
     animation:stageIn 1.4s ease forwards;
+    transition:transform 1.1s cubic-bezier(.4,0,.2,1), filter 1.1s ease, opacity 1.1s ease;
   }
   @keyframes stageIn{
     from{ opacity:0; transform:translateY(14px); }
@@ -131,6 +138,10 @@
     position:relative;
     width:clamp(320px, 92vw, 620px);
     height:clamp(220px, 63vw, 420px);
+    transition:transform 1s cubic-bezier(.4,0,.2,1);
+  }
+  .envelope.open{
+    transform:scale(1.6);
   }
 
   .envelope-body{
@@ -231,6 +242,10 @@
     opacity:1;
     transform:translateY(0);
   }
+  #hero .reveal:nth-child(1){ transition-delay:.05s; }
+  #hero .reveal:nth-child(2){ transition-delay:.2s; }
+  #hero .reveal:nth-child(3){ transition-delay:.35s; }
+  #hero .reveal:nth-child(4){ transition-delay:.5s; }
 
   .eyebrow{
     font-family:'Cormorant Garamond', serif;
@@ -277,6 +292,16 @@
     position:relative;
     overflow:hidden;
   }
+  .photo-frame img{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    animation:kenburns 14s ease-in-out infinite alternate;
+  }
+  @keyframes kenburns{
+    0%{ transform:scale(1); }
+    100%{ transform:scale(1.05); }
+  }
   .photo-frame::before{
     /* thin corner ornament, reuses the line-icon language */
     content:'';
@@ -314,6 +339,29 @@
     padding:44px 32px;
     box-shadow:var(--shadow);
     text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .info-card::before{
+    content:'';
+    position:absolute;
+    top:0; left:-60%;
+    width:35%; height:100%;
+    background:linear-gradient(100deg, transparent, rgba(255,255,255,0.6), transparent);
+    transform:skewX(-20deg);
+    opacity:0;
+    pointer-events:none;
+  }
+  .info-card.in-view::before{
+    animation:sheen 2.6s ease-in-out .35s 2;
+  }
+  @keyframes sheen{
+    0%{ left:-60%; opacity:0; }
+    20%{ opacity:1; }
+    50%{ left:130%; opacity:0; }
+    50.01%{ left:-60%; opacity:0; }
+    70%{ opacity:1; }
+    100%{ left:130%; opacity:0; }
   }
   .info-title{ font-size:24px; margin-bottom:8px; }
   .venue-name{
@@ -359,6 +407,19 @@
   .timeline-icon-wide{
     width:38px; height:18px;
   }
+  .timeline-icon path{
+    stroke-dasharray:320;
+    stroke-dashoffset:320;
+  }
+  .info-card.in-view .timeline-row:nth-child(1) .timeline-icon path{
+    animation:drawLine 2.4s ease .5s forwards;
+  }
+  .info-card.in-view .timeline-row:nth-child(2) .timeline-icon path{
+    animation:drawLine 2.4s ease 1.2s forwards;
+  }
+  @keyframes drawLine{
+    to{ stroke-dashoffset:0; }
+  }
   .timeline-time{
     font-family:'Cormorant Garamond', serif;
     font-size:19px;
@@ -392,6 +453,11 @@
     text-align:center;
     color:var(--ink-soft);
     background:linear-gradient(160deg, rgba(191,234,228,0.35), rgba(255,255,255,0.4));
+    animation:rsvpPulse 3.2s ease-in-out infinite;
+  }
+  @keyframes rsvpPulse{
+    0%,100%{ box-shadow:0 0 0 rgba(174,217,234,0); border-color:var(--tiffany-mid); }
+    50%{ box-shadow:0 0 40px rgba(174,217,234,0.85); border-color:var(--sky-blue-deep); }
   }
   .rsvp-placeholder svg{ width:30px; height:30px; stroke:var(--tiffany-mid); margin-bottom:12px; }
   .rsvp-placeholder p{ margin:4px 0; font-size:13.5px; letter-spacing:1px; }
@@ -401,8 +467,9 @@
   footer{
     position:relative;
     text-align:center;
-    padding:70px 24px 60px;
+    padding:70px 24px 90px;
     overflow:hidden;
+    background:linear-gradient(180deg, transparent 0%, rgba(174,217,234,0.4) 100%);
   }
   footer p{
     position:relative;
@@ -537,7 +604,7 @@
 
   <section id="rsvp">
     <div class="divider reveal"></div>
-    <p class="eyebrow cute-tc reveal">RSVP</p>
+    <p class="eyebrow reveal">RSVP</p>
 
     <div class="rsvp-placeholder cute-tc reveal" id="rsvp-embed-container">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
@@ -576,7 +643,7 @@
       mainContent.classList.add('visible');
       document.body.style.overflow = 'auto';
       tryPlayMusic();
-      setTimeout(function(){ envelopeScreen.style.display = 'none'; }, 1100);
+      setTimeout(function(){ envelopeScreen.style.display = 'none'; }, 700);
     }, 1000);
   });
 
