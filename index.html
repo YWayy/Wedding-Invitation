@@ -459,6 +459,10 @@
     0%,100%{ box-shadow:0 0 0 rgba(174,217,234,0); border-color:var(--tiffany-mid); }
     50%{ box-shadow:0 0 40px rgba(174,217,234,0.85); border-color:var(--sky-blue-deep); }
   }
+  .rsvp-pulse-wrap{
+    border-radius:14px;
+    animation:rsvpPulse 3.2s ease-in-out infinite;
+  }
   .rsvp-placeholder svg{ width:30px; height:30px; stroke:var(--tiffany-mid); margin-bottom:12px; }
   .rsvp-placeholder p{ margin:4px 0; font-size:13.5px; letter-spacing:1px; }
   /* NOTE for designer: paste the RSVP embed code inside #rsvp-embed-container */
@@ -606,15 +610,9 @@
     <div class="divider reveal"></div>
     <p class="eyebrow reveal">RSVP</p>
 
-    <div class="rsvp-placeholder cute-tc reveal" id="rsvp-embed-container">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 4h16v16H4z"/>
-        <path d="M8 9h8M8 13h5"/>
-      </svg>
-      <p>出席調查表預留區</p>
-      <p>調查表嵌入碼將顯示於此</p>
-      <!-- NOTE for designer: paste the survey's HTML embed code inside this container,
-           replacing this placeholder block. -->
+    <div class="reveal rsvp-pulse-wrap" id="rsvp-embed-container">
+      <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"
+        width="100%" height="600px" src="https://www.surveycake.com/s/ABmGA" style="border:#ddd 1px solid; border-radius:14px;" allowTransparency="true" frameborder="0"></iframe>
     </div>
   </section>
 
