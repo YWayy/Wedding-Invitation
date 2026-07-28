@@ -354,14 +354,11 @@
     pointer-events:none;
   }
   .info-card.in-view::before{
-    animation:sheen 2.6s ease-in-out .35s 2;
+    animation:sheen 5s ease-in-out .35s 1;
   }
   @keyframes sheen{
     0%{ left:-60%; opacity:0; }
     20%{ opacity:1; }
-    50%{ left:130%; opacity:0; }
-    50.01%{ left:-60%; opacity:0; }
-    70%{ opacity:1; }
     100%{ left:130%; opacity:0; }
   }
   .info-title{ font-size:24px; margin-bottom:8px; }
@@ -458,16 +455,9 @@
   .rsvp-pulse-wrap{
     position:relative;
     padding:18px;
-    border:6px solid rgba(255,255,255,0.7);
-    border-radius:20px;
+    border:1px dashed var(--tiffany-mid);
+    border-radius:10px;
     animation:rsvpPulse 3.2s ease-in-out infinite;
-  }
-  .rsvp-pulse-wrap::before{
-    content:'';
-    position:absolute; inset:9px;
-    border:1px solid var(--tiffany-mid);
-    border-radius:13px;
-    pointer-events:none;
   }
   @keyframes rsvpPulse{
     0%,100%{ box-shadow:0 0 0 rgba(127,209,199,0); }
