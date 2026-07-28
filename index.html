@@ -454,15 +454,24 @@
     text-align:center;
     color:var(--ink-soft);
     background:linear-gradient(160deg, rgba(191,234,228,0.35), rgba(255,255,255,0.4));
-    animation:rsvpPulse 3.2s ease-in-out infinite;
-  }
-  @keyframes rsvpPulse{
-    0%,100%{ box-shadow:0 0 0 rgba(174,217,234,0); border-color:var(--tiffany-mid); }
-    50%{ box-shadow:0 0 40px rgba(174,217,234,0.85); border-color:var(--sky-blue-deep); }
   }
   .rsvp-pulse-wrap{
-    border-radius:14px;
+    position:relative;
+    padding:18px;
+    border:6px solid rgba(255,255,255,0.7);
+    border-radius:20px;
     animation:rsvpPulse 3.2s ease-in-out infinite;
+  }
+  .rsvp-pulse-wrap::before{
+    content:'';
+    position:absolute; inset:9px;
+    border:1px solid var(--tiffany-mid);
+    border-radius:13px;
+    pointer-events:none;
+  }
+  @keyframes rsvpPulse{
+    0%,100%{ box-shadow:0 0 0 rgba(127,209,199,0); }
+    50%{ box-shadow:0 0 45px rgba(127,209,199,0.55); }
   }
   .rsvp-placeholder svg{ width:30px; height:30px; stroke:var(--tiffany-mid); margin-bottom:12px; }
   .rsvp-placeholder p{ margin:4px 0; font-size:13.5px; letter-spacing:1px; }
@@ -614,7 +623,7 @@
 
     <div class="reveal rsvp-pulse-wrap" id="rsvp-embed-container">
       <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"
-        width="100%" height="600px" src="https://www.surveycake.com/s/ABmGA" style="border:#ddd 1px solid; border-radius:14px;" allowTransparency="true" frameborder="0"></iframe>
+        width="100%" height="600px" src="https://www.surveycake.com/s/ABmGA" style="border:none; border-radius:14px; display:block;" allowTransparency="true" frameborder="0"></iframe>
     </div>
   </section>
 
